@@ -46,7 +46,7 @@ const Home = () => {
                 {users.map((singleUser, index) => {
                   return (
                     <tr
-                      className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"
+                      className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 hover:text-white"
                       key={index}
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">

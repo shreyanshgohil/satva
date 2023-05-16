@@ -44,6 +44,7 @@ export default function Login() {
               [key]: "please enter the valid email id",
             };
           });
+          return false;
         }
       }
 
@@ -59,6 +60,7 @@ export default function Login() {
               };
             });
           }
+          return false;
         }
       }
     }

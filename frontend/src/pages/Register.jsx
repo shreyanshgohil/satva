@@ -42,6 +42,7 @@ const Register = () => {
               [key]: "please enter the valid email id",
             };
           });
+          return false;
         }
       }
 
@@ -56,6 +57,7 @@ const Register = () => {
                 [key]: "please enter the valid password",
               };
             });
+            return false;
           }
         }
       }
@@ -70,6 +72,7 @@ const Register = () => {
                 [key]: "please enter the valid phone number",
               };
             });
+            return false;
           }
         }
       }
@@ -84,6 +87,7 @@ const Register = () => {
                 [key]: "please enter the valid User name",
               };
             });
+            return false;
           }
         }
       }
@@ -106,7 +110,7 @@ const Register = () => {
           body: JSON.stringify(registrationFormData),
         });
         if (response.status === 200) {
-          toast.success("Login done successfully");
+          toast.success("Register done successfully");
           navigate("/login");
         } else {
           toast.error("Please enter valid Details");
