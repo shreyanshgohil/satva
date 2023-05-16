@@ -1,2 +1,3 @@
 import Header from "./Header";
-export { Header };
+import Loader from "./Loader";
+export { Header,Loader };

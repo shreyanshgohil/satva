@@ -5,11 +5,16 @@ import { regex } from "../utils/regex";
 import data from "../constants/Form.json";
 import toast from "react-hot-toast";
 
+const INITIAL_STATE = {
+  email: "",
+  password: "",
+};
+
 // Login page
 export default function Login() {
   // Inits
   const { loginFields } = data;
-  const [loginData, setLoginData] = useState({});
+  const [loginData, setLoginData] = useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -44,7 +49,6 @@ export default function Login() {
               [key]: "please enter the valid email id",
             };
           });
-          return false;
         }
       }
 
@@ -52,15 +56,12 @@ export default function Login() {
       if (key === "password") {
         if (value.length < 6) {
           isValid = false;
-          if (!isValid) {
-            setErrors((prevState) => {
-              return {
-                ...prevState,
-                [key]: "please enter the valid password",
-              };
-            });
-          }
-          return false;
+          setErrors((prevState) => {
+            return {
+              ...prevState,
+              [key]: "please enter the valid password",
+            };
+          });
         }
       }
     }

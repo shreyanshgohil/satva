@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 const Home = () => {
   // Inits
   const [users, setUser] = useState([]);
-
   // For fetch all users from database
   const fetchAllUsers = async () => {
     try {
@@ -19,14 +18,15 @@ const Home = () => {
   useEffect(() => {
     fetchAllUsers();
   }, []);
+
   // JSX
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div className="flex flex-col max-w-full">
+      <div className="overflow-x-auto ">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-hidden">
             <table className="min-w-full text-left text-sm font-light">
-              <thead className="border-b font-medium dark:border-neutral-500">
+              <thead className="border-b font-medium border-neutral-500">
                 <tr>
                   <th scope="col" className="px-6 py-4">
                     #
@@ -46,7 +46,7 @@ const Home = () => {
                 {users.map((singleUser, index) => {
                   return (
                     <tr
-                      className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 hover:text-white"
+                      className="border-b transition duration-300 ease-in-out  border-neutral-500 hover:bg-neutral-600 hover:text-white"
                       key={index}
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">

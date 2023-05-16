@@ -4,10 +4,19 @@ import { regex } from "../utils/regex";
 import data from "../constants/Form.json";
 import { DynamicInput } from "../components/DynamicForm";
 import toast from "react-hot-toast";
+
+const INITIAL_STATE = {
+  userName: "",
+  email: "",
+  password: "",
+  contactNo: "",
+};
+
 const Register = () => {
   // Inits
   const { registerFields } = data;
-  const [registrationFormData, setRegistrationFormData] = useState({});
+  const [registrationFormData, setRegistrationFormData] =
+    useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -42,7 +51,6 @@ const Register = () => {
               [key]: "please enter the valid email id",
             };
           });
-          return false;
         }
       }
 
@@ -50,45 +58,37 @@ const Register = () => {
       if (key === "password") {
         if (value.length < 6) {
           isValid = false;
-          if (!isValid) {
-            setErrors((prevState) => {
-              return {
-                ...prevState,
-                [key]: "please enter the valid password",
-              };
-            });
-            return false;
-          }
+
+          setErrors((prevState) => {
+            return {
+              ...prevState,
+              [key]: "please enter the valid password",
+            };
+          });
         }
       }
       // For phone number
-      if (key === "contact") {
+      if (key === "contactNo") {
         if (value.length !== 10) {
           isValid = false;
-          if (!isValid) {
-            setErrors((prevState) => {
-              return {
-                ...prevState,
-                [key]: "please enter the valid phone number",
-              };
-            });
-            return false;
-          }
+          setErrors((prevState) => {
+            return {
+              ...prevState,
+              [key]: "please enter the valid phone number",
+            };
+          });
         }
       }
 
       if (key === "userName") {
         if (value.length < 3) {
           isValid = false;
-          if (!isValid) {
-            setErrors((prevState) => {
-              return {
-                ...prevState,
-                [key]: "please enter the valid User name",
-              };
-            });
-            return false;
-          }
+          setErrors((prevState) => {
+            return {
+              ...prevState,
+              [key]: "please enter the valid User name",
+            };
+          });
         }
       }
     }
@@ -100,7 +100,6 @@ const Register = () => {
     try {
       event.preventDefault();
       const isValid = validateForm();
-
       if (isValid) {
         const response = await fetch("http://localhost:5000/user/register", {
           method: "post",
