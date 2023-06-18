@@ -22,6 +22,10 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: store,
+    cookie: {
+      secure: false, // Set it to true if using HTTPS
+      maxAge: 24 * 60 * 60 * 1000, // Session expiration time (1 day)
+    },
   })
 );
 app.use(

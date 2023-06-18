@@ -1,4 +1,5 @@
 import { User } from "../models/index.js";
+import jwt from "jsonwebtoken";
 
 // For register a user
 const registerUser = async (req, res) => {
@@ -21,8 +22,14 @@ const registerUser = async (req, res) => {
 const loginUser = (req, res) => {
   try {
     const { isAuthenticated } = req.locals;
+
+    const accessToken = jwt.sign(
+      { email: "shreyansh", password: "ninja" },
+      process.env.ACCESS_TOKEN_SECRET
+    );
+    console.log(accessToken, "accessToken");
     if (isAuthenticated) {
-      req.session.isLoggedIn = true;
+      req.session.jwtToken = accessToken;
       return (
         res
           .status(200)
@@ -42,6 +49,14 @@ const loginUser = (req, res) => {
 // For get All users
 const getAllUser = async (req, res) => {
   try {
+    console.log(req.session.jwtToken, "GGGGGGGGGGGGGGGGG");
+    jwt.verify(
+      req.session.jwtToken,
+      process.env.ACCESS_TOKEN_SECRET,
+      (err, data) => {
+        console.log(err, data, "FFFFFFF");
+      }
+    );
     const users = await User.find({}, { password: 0 });
     res.status(200).json({ message: "Users find successfully", users });
   } catch (err) {
