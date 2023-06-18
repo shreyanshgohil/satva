@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { getAllUser, loginUser, registerUser } from "../controllers/user.js";
+import {
+  getAllUser,
+  loginUser,
+  registerUser,
+  logoutHandler,
+} from "../controllers/user.js";
 import {
   generateHashedPassword,
   authenticateUser,
@@ -8,9 +13,12 @@ import {
 const userRoutes = Router();
 
 // user routes
+
 userRoutes.post("/register", generateHashedPassword, registerUser);
 
 userRoutes.post("/login", authenticateUser, loginUser);
+
+userRoutes.post("/logout", logoutHandler);
 
 userRoutes.get("/get-users", getAllUser);
 

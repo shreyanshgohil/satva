@@ -1,6 +1,6 @@
-import { Routes, Route } from "react-router-dom";
-import { Login, Register, Home } from "./pages";
+import { Route, Routes } from "react-router-dom";
 import { Header } from "./components/Global";
+import { Home, Login, Register } from "./pages";
 const App = () => {
   return (
     <Routes>

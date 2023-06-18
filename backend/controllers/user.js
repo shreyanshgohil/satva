@@ -22,7 +22,14 @@ const loginUser = (req, res) => {
   try {
     const { isAuthenticated } = req.locals;
     if (isAuthenticated) {
-      return res.status(200).json({ message: "Login done successfully" });
+      req.session.isLoggedIn = true;
+      return (
+        res
+          .status(200)
+          // .setHeader("Set-Cookie", "Ninja=true secure")
+          // .cookie("Hello", "dsdsdsdsdd", { secure: true, httpOnly: true })
+          .json({ message: "Login done successfully" })
+      );
     } else {
       return res.status(400).json({ message: "Wrong username and password" });
     }
@@ -43,4 +50,10 @@ const getAllUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, getAllUser };
+const logoutHandler = (req, res) => {
+  req.session.destroy(() => {
+    return res.status(200).json({ message: "Users Logout successfully" });
+  });
+};
+
+export { registerUser, loginUser, getAllUser, logoutHandler };

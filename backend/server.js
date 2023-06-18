@@ -3,11 +3,27 @@ import { config } from "dotenv";
 import mongoose from "mongoose";
 import { userRoutes } from "./routes/index.js";
 import cors from "cors";
-
+import session from "express-session";
+import MongoDBSession from "connect-mongodb-session";
 // Inits
 
 config();
 const app = express();
+const MongoDBStore = MongoDBSession(session);
+
+const store = new MongoDBStore({
+  uri: process.env.MONGO_URL,
+  collection: "sessions",
+});
+
+app.use(
+  session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  })
+);
 app.use(
   cors({
     origin: "http://localhost:3000",

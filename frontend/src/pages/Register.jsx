@@ -5,7 +5,7 @@ import data from "../constants/Form.json";
 import { DynamicInput } from "../components/DynamicForm";
 import toast from "react-hot-toast";
 
-const initialState = {
+const INITIAL_STATE = {
   userName: "",
   email: "",
   password: "",
@@ -15,7 +15,7 @@ const Register = () => {
   // Inits
   const { registerFields } = data;
   const [registrationFormData, setRegistrationFormData] =
-    useState(initialState);
+    useState(INITIAL_STATE);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -79,7 +79,19 @@ const Register = () => {
           setErrors((prevState) => {
             return {
               ...prevState,
-              [key]: "Phone number of 10 digits",
+              [key]: "please enter the valid phone number",
+            };
+          });
+        }
+      }
+
+      if (key === "userName") {
+        if (value.length < 3) {
+          isValid = false;
+          setErrors((prevState) => {
+            return {
+              ...prevState,
+              [key]: "please enter the valid User name",
             };
           });
         }
@@ -93,8 +105,8 @@ const Register = () => {
     try {
       event.preventDefault();
       const isValid = validateForm();
-      if (Object.keys(errors).length === 0 && isValid) {
-        const response = await fetch("http://localhost:5000/user/register", {
+      if (isValid) {
+        const response = await fetch("/user/register", {
           method: "post",
           headers: {
             "Content-Type": "application/json",
